@@ -1,0 +1,24 @@
+# TIA Portal V21 MCP —— 运行依赖
+#
+# 用法：
+#   python -m pip install -r requirements.txt
+#
+# 注意三件事：
+#
+# 1) mcp[cli] 会连带装上 starlette / pydantic / uvicorn / anyio / sse-starlette /
+#    httpx / pywin32（这些是 mcp 自己声明的依赖），所以不用逐个列出来。
+#
+# 2) 西门子官方包 siemens_tia_scripting **不在 PyPI 上**，写进本文件会导致
+#    `pip install -r` 直接失败（PyPI 上的同名包是第三方实现，不要装）。
+#    必须从西门子工业支持下载 wheel 后手工安装，步骤见 README
+#    「4.2 安装西门子 TIA Scripting Python」。
+#
+# 3) 不要把 `pip freeze` 的输出整个复制到这里：它会带上一行
+#    siemens_tia_scripting==1.4.3，于是新机器上装依赖就会失败。
+#    要锁版本请手工删掉那一行。
+
+mcp[cli]>=2,<3
+
+# pywin32：mcp 在 Windows 上会带它，但本项目直接 import win32api（读 TIA 版本号），
+# 显式声明可以避免换机器/换 Python 版本时缺失。
+pywin32>=311; sys_platform == "win32"

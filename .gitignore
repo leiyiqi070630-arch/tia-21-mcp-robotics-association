@@ -1,0 +1,61 @@
+# ============================================================================
+# 白名单式忽略规则
+#
+# 思路：先忽略一切，再逐项放行要开源的源码与文档。
+# 这样仓库里只会有源码，不会误提交产物、虚拟环境、日志和本地备份；
+# 本机文件不会被删除，只是不进 Git。
+#
+# ⚠️ 新增源码目录时，记得在下面第 2~4 节加一行 `!/新目录/`，
+#    否则它会被第 1 节的 `/*` 一起忽略掉。
+# ============================================================================
+
+# 1. 默认忽略一切
+/*
+
+# 2. 根目录放行
+!/.gitignore
+!/.gitattributes
+!/LICENSE
+!/README.md
+!/requirements.txt
+!/requirements-dev.txt
+!/codex-mcp-config.toml
+!/mcp_run.py
+!/build.ps1
+!/build-release.ps1
+!/api/
+!/core/
+!/device_templates/
+!/build/
+!/desktop/
+
+# 3. build/ 只放行打包脚本与图标源码，不放行产物与日志
+/build/*
+!/build/BUILD.md
+!/build/cython_build.py
+!/build/make_icons.py
+!/build/tia_portal_v21_mcp.spec
+!/build/launcher/
+!/build/assets/
+
+# 4. desktop/ 只放行前端源码、运行时资源与图标（排除 node_modules、dist、electron.exe 等）
+/desktop/*
+!/desktop/README.md
+!/desktop/package.json
+!/desktop/package-lock.json
+!/desktop/src/
+!/desktop/resources/
+!/desktop/build/
+/desktop/build/*
+!/desktop/build/icon.ico
+
+# 6. 通用垃圾（放在最后：gitignore 以最后一条匹配为准，所以它们的优先级最高）
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.venv/
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini

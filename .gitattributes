@@ -1,0 +1,30 @@
+# 统一换行，避免 Windows/Linux 来回改文件产生整篇 diff
+* text=auto
+
+# Windows 脚本保持 CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 源码与文档统一 LF
+.gitignore text eol=lf
+.gitattributes text eol=lf
+LICENSE text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.spec text eol=lf
+*.toml text eol=lf
+*.cs text eol=crlf
+*.html text eol=lf
+*.css text eol=lf
+
+# 二进制，不做换行转换与 diff
+*.png binary
+*.jpg binary
+*.ico binary
+*.whl binary
+*.exe binary
+*.dll binary
